@@ -285,7 +285,7 @@ class _PredictionScreenState extends State<PredictionScreen> {
                       ),
                     ),
                   
-                  // Auto-redirect to summary screen when prediction is ready
+                  // Auto-redirect to summary screen when prediction is ready (UX improvement)
                   if (provider.prediction != null && _currentRequest != null)
                     FutureBuilder(
                       future: Future.delayed(const Duration(milliseconds: 500)),
