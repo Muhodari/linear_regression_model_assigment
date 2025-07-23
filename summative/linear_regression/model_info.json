@@ -1,0 +1,17 @@
+{
+  "model_name": "Linear Regression",
+  "feature_names": [
+    "study_hours",
+    "sleep_hours",
+    "attendance_rate",
+    "previous_test_score",
+    "extracurricular_hours",
+    "stress_level",
+    "study_attendance_interaction",
+    "sleep_study_ratio",
+    "performance_momentum"
+  ],
+  "test_r2": 0.49525815777307236,
+  "test_rmse": 4.797999007275521,
+  "test_mae": 3.7779121364820223
+}
