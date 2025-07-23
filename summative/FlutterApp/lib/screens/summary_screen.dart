@@ -88,7 +88,7 @@ class SummaryScreen extends StatelessWidget {
               
               const SizedBox(height: 24),
               
-              // Prediction Result (Moved to top)
+              // Prediction Result (Moved to top for better UX)
               Container(
                 width: double.infinity,
                 padding: const EdgeInsets.all(24),
