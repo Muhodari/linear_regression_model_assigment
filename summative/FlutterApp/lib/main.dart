@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => PredictionProvider(),
       child: MaterialApp(
-        title: 'Student Performance Predictor',
+        title: 'Student Performance Predictor (Orange Theme)',
         theme: ThemeData(
           primarySwatch: Colors.orange,
           primaryColor: Colors.orange[600],
