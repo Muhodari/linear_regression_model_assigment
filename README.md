@@ -22,16 +22,16 @@ The project implements a **three-tier architecture**:
 
 ### Dataset & Features
 
-The system uses a **synthetic dataset** with 6 key predictive features:
+The system uses a **synthetic student performance dataset** with 6 key predictive features:
 
-| Feature | Range | Description |
-|---------|-------|-------------|
-| Study Hours per Week | 0-40 | Time spent studying outside class |
-| Sleep Hours per Night | 4-12 | Quality and quantity of sleep |
-| Attendance Rate | 50-100% | Class attendance percentage |
-| Previous Test Score | 30-100 | Performance in previous assessments |
-| Extracurricular Hours | 0-20 | Time in non-academic activities |
-| Stress Level | 1-10 | Self-reported stress scale |
+| Feature | Range | Description | Distribution |
+|---------|-------|-------------|-------------|
+| Study Hours per Week | 0-40 | Time spent studying outside class | Normal (μ=15, σ=5) |
+| Sleep Hours per Night | 4-12 | Quality and quantity of sleep | Normal (μ=7.5, σ=1.5) |
+| Attendance Rate | 50-100% | Class attendance percentage | Normal (μ=85, σ=10) |
+| Previous Test Score | 30-100 | Performance in previous assessments | Normal (μ=75, σ=15) |
+| Extracurricular Hours | 0-20 | Time in non-academic activities | Normal (μ=5, σ=3) |
+| Stress Level | 1-10 | Self-reported stress scale | Normal (μ=5, σ=2) |
 
 ### Model Comparison
 
@@ -43,11 +43,32 @@ The system evaluates three machine learning algorithms:
 | **Decision Tree** | Non-linear relationships | Feature importance |
 | **Random Forest** | High accuracy, robust | Production deployment |
 
+### Dataset Details
+
+#### **📊 Synthetic Data Generation**
+- **Size**: 1,000 student records
+- **Type**: Programmatically generated for educational purposes
+- **Seed**: Fixed random seed (42) for reproducibility
+- **Privacy**: No real student data used
+
+#### **🔧 Feature Engineering**
+The model includes **3 additional engineered features**:
+
+| Engineered Feature | Formula | Purpose |
+|-------------------|---------|---------|
+| Study-Attendance Interaction | `study_hours × attendance_rate / 100` | Captures study effectiveness |
+| Sleep-Study Ratio | `sleep_hours / (study_hours + 1)` | Balance between rest and work |
+| Performance Momentum | `previous_test_score × attendance_rate / 100` | Academic trajectory |
+
+#### **🎯 Target Variable**
+- **Final Score** (0-100%): Academic performance prediction
+- **Generation Logic**: Weighted combination of features with realistic noise
+
 ### Model Performance Metrics
 
-- **R² Score**: Measures prediction accuracy
-- **Mean Absolute Error (MAE)**: Average prediction error
-- **Root Mean Square Error (RMSE)**: Penalizes large errors
+- **R² Score**: Measures prediction accuracy (Current: 49.5%)
+- **Mean Absolute Error (MAE)**: Average prediction error (Current: 3.78 points)
+- **Root Mean Square Error (RMSE)**: Penalizes large errors (Current: 4.80 points)
 - **Cross-validation**: Ensures model reliability
 
 ---
@@ -58,10 +79,10 @@ The system evaluates three machine learning algorithms:
 
 | Endpoint | Method | Description | URL |
 |----------|--------|-------------|-----|
-| `/predict` | POST | Main prediction endpoint | `http://localhost:8000/predict` |
-| `/health` | GET | API health check | `http://localhost:8000/health` |
-| `/model-info` | GET | Model metadata | `http://localhost:8000/model-info` |
-| `/docs` | GET | Interactive API documentation | `http://localhost:8000/docs` |
+| `/predict` | POST | Main prediction endpoint | `http://127.0.0.1:8000/predict` |
+| `/health` | GET | API health check | `http://127.0.0.1:8000/health` |
+| `/model-info` | GET | Model metadata | `http://127.0.0.1:8000/model-info` |
+| `/docs` | GET | Interactive API documentation | `http://127.0.0.1:8000/docs` |
 
 ### Key Features
 
@@ -75,7 +96,7 @@ The system evaluates three machine learning algorithms:
 
 #### Local Development
 ```bash
-curl -X POST "http://localhost:8000/predict" \
+curl -X POST "http://127.0.0.1:8000/predict" \
      -H "Content-Type: application/json" \
      -d '{
        "study_hours": 20,
@@ -114,9 +135,30 @@ curl -X POST "https://your-deployed-api.onrender.com/predict" \
 
 You can test the API using:
 
-1. **Swagger UI**: Visit `http://localhost:8000/docs` for interactive testing
-2. **Health Check**: Visit `http://localhost:8000/health` to verify API status
-3. **Model Info**: Visit `http://localhost:8000/model-info` to see model details
+1. **Swagger UI**: Visit `http://127.0.0.1:8000/docs` for interactive testing
+2. **Health Check**: Visit `http://127.0.0.1:8000/health` to verify API status
+3. **Model Info**: Visit `http://127.0.0.1:8000/model-info` to see model details
+
+#### **🧪 Quick Test Commands**
+```bash
+# Health check
+curl http://127.0.0.1:8000/health
+
+# Model info
+curl http://127.0.0.1:8000/model-info
+
+# Test prediction
+curl -X POST "http://127.0.0.1:8000/predict" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "study_hours": 20,
+       "sleep_hours": 8,
+       "attendance_rate": 90,
+       "previous_test_score": 85,
+       "extracurricular_hours": 5,
+       "stress_level": 4
+     }'
+```
 
 ---
 
@@ -159,6 +201,24 @@ You can test the API using:
 - **Flutter SDK 3.0+** for mobile app
 - **Git** for version control
 
+### 🎯 Dataset Information
+
+This project uses a **synthetic student performance dataset** with the following characteristics:
+
+- **📊 Dataset Type**: Programmatically generated for educational purposes
+- **📈 Size**: 1,000 student records
+- **🔒 Privacy**: No real student data used
+- **🎲 Reproducibility**: Fixed random seed (42) for consistent results
+- **📋 Features**: 6 base features + 3 engineered features
+- **🎯 Target**: Academic performance prediction (0-100%)
+
+#### **Why Synthetic Data?**
+1. **Educational Purpose**: Demonstrates ML concepts without privacy concerns
+2. **Controlled Variables**: Known relationships for learning
+3. **Reproducible Results**: Same outcomes every time
+4. **Realistic Ranges**: Based on educational research
+5. **No Privacy Issues**: Compliant with data protection regulations
+
 ### Installation & Setup
 
 #### 1. Clone the Repository
@@ -186,7 +246,7 @@ flutter run
 #### API URL Configuration
 Update the API URL in `summative/FlutterApp/lib/providers/prediction_provider.dart`:
 ```dart
-static const String baseUrl = 'http://localhost:8000'; // Local development
+static const String baseUrl = 'http://127.0.0.1:8000'; // Local development
 // or
 ```
 
@@ -234,7 +294,7 @@ linear_regression_model/
 ## 🧪 Testing & Quality Assurance
 
 ### API Testing
-- **Swagger UI**: Interactive testing at `http://localhost:8000/docs`
+- **Swagger UI**: Interactive testing at `http://127.0.0.1:8000/docs`
 - **Input Validation**: Test boundary conditions and invalid inputs
 - **Error Handling**: Verify proper error responses
 - **Performance**: Load testing for production readiness
@@ -373,7 +433,7 @@ This project is developed for **educational purposes** as part of a machine lear
 For questions, issues, or contributions:
 - **GitHub Issues**: Report bugs and feature requests
 - **Documentation**: Check inline code comments
-- **API Documentation**: Visit `http://localhost:8000/docs` when running locally
+- **API Documentation**: Visit `http://127.0.0.1:8000/docs` when running locally
 
 ---
 
