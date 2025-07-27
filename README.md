@@ -428,6 +428,43 @@ This project is developed for **educational purposes** as part of a machine lear
 
 ---
 
+## 🎥 Video Demo
+
+### 📱 5-Minute Project Demonstration
+
+**YouTube Video Link**: [Student Performance Prediction System Demo](https://youtube.com/watch?v=YOUR_VIDEO_ID)
+
+#### **🎯 Video Content:**
+1. **📱 Mobile App Demo** (2 minutes)
+   - App navigation and UI overview
+   - Input form demonstration
+   - Prediction workflow
+   - Results display and summary screen
+
+2. **🔧 API Testing** (1 minute)
+   - Swagger UI demonstration
+   - API endpoint testing
+   - Request/response examples
+
+3. **🧠 Model Performance** (1 minute)
+   - Linear Regression vs Decision Tree vs Random Forest
+   - Performance metrics explanation
+   - Model selection justification
+
+4. **🚀 Deployment Overview** (1 minute)
+   - System architecture
+   - Technology stack
+   - Future enhancements
+
+#### **📋 Video Requirements:**
+- ✅ **Presenter's Camera**: Must be visible throughout
+- ✅ **Mobile App**: Live demonstration of Flutter app
+- ✅ **API Testing**: Real-time Swagger UI testing
+- ✅ **Model Discussion**: Performance metrics and comparisons
+- ✅ **Clear Audio**: Professional presentation quality
+
+---
+
 ## 📞 Support & Contact
 
 For questions, issues, or contributions:
