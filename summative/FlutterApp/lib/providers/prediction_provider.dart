@@ -10,7 +10,7 @@ class PredictionProvider extends ChangeNotifier {
   String? _error;
   
   // API configuration
-  static const String baseUrl = 'http://localhost:8000'; // Local API for testing
+  static const String baseUrl = 'http://127.0.0.1:8000'; // Local API for testing
   
   PredictionResponse? get prediction => _prediction;
   bool get isLoading => _isLoading;
